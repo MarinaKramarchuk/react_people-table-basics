@@ -5,10 +5,9 @@ import cn from 'classnames';
 type Props = {
   person: Person | undefined;
   name: string | null;
-  onSelected: (slug: string | null) => void;
 };
 
-export const PersonLink: React.FC<Props> = ({ person, name, onSelected }) => {
+export const PersonLink: React.FC<Props> = ({ person, name }) => {
   if (!name) {
     return <span>-</span>;
   }
@@ -21,7 +20,6 @@ export const PersonLink: React.FC<Props> = ({ person, name, onSelected }) => {
     <Link
       to={`/people/${person.slug}`}
       className={cn({ 'has-text-danger': person.sex === 'f' })}
-      onClick={() => onSelected?.(person.slug)}
     >
       {person.name}
     </Link>

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Person } from '../../types';
 import { PersonLink } from '../PersonLink/PersonLink';
 import cn from 'classnames';
@@ -11,7 +10,6 @@ type Props = {
 export const PeopleTable: React.FC<Props> = ({ people }) => {
   const { slug } = useParams();
 
-  const [isSelected, setIsSelected] = useState<string | null>(slug || null);
   const findByName = (name: string | null) => people.find(p => p.name === name);
 
   return (
@@ -36,15 +34,11 @@ export const PeopleTable: React.FC<Props> = ({ people }) => {
             data-cy="person"
             key={person.slug}
             className={cn({
-              'has-background-warning': isSelected === person.slug,
+              'has-background-warning': slug === person.slug,
             })}
           >
             <td>
-              <PersonLink
-                person={person}
-                name={person.name}
-                onSelected={setIsSelected}
-              />
+              <PersonLink person={person} name={person.name} />
             </td>
 
             <td>{person.sex}</td>
@@ -55,7 +49,6 @@ export const PeopleTable: React.FC<Props> = ({ people }) => {
               <PersonLink
                 person={findByName(person.motherName)}
                 name={person.motherName}
-                onSelected={setIsSelected}
               />
             </td>
 
@@ -63,7 +56,6 @@ export const PeopleTable: React.FC<Props> = ({ people }) => {
               <PersonLink
                 person={findByName(person.fatherName)}
                 name={person.fatherName}
-                onSelected={setIsSelected}
               />
             </td>
           </tr>
